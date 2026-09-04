@@ -297,9 +297,14 @@
           li.style.setProperty('--item-order', i);
           li.classList.remove('is-shown');
         });
-        void list.offsetWidth; // force reflow so the removed class registers before re-adding
+        // Two rAFs (not a forced offsetWidth read) let the "remove" commit
+        // before the "add" without a synchronous layout flush — a forced
+        // reflow here landed inside the live scroll-update frame and was
+        // exactly what brought the carousel jank back.
         requestAnimationFrame(function () {
-          items.forEach(function (li) { li.classList.add('is-shown'); });
+          requestAnimationFrame(function () {
+            items.forEach(function (li) { li.classList.add('is-shown'); });
+          });
         });
       } else {
         list.hidden = true;
@@ -317,7 +322,11 @@
     nameEl.textContent = NAMES[key] || '';
     if (key !== activeKey) {
       activeKey = key;
-      setListForKey(key);
+      // Defer off the current frame — setActive is called from inside the
+      // scroll-driven applyTransforms(true) path, and touching list.hidden
+      // (a layout-invalidating write on two 6-item lists) synchronously
+      // there is exactly the kind of extra work that jars a live scroll.
+      requestAnimationFrame(function () { setListForKey(key); });
     }
   }
 
