@@ -127,16 +127,45 @@
     return;
   }
 
+  // Cards inside a horizontally-scrolling gallery (.procedures__list) sit
+  // clipped by their ancestor's overflow-x — dragging the gallery changes how
+  // much of a card is inside that clip, which the IntersectionObserver reads
+  // as an intersection-ratio change just like a vertical scroll would. Left
+  // per-card, that replays the blur/translateY reveal on every drag, which
+  // looks like the photo jumping. So the whole gallery reveals together, keyed
+  // off the list's own (vertical) entry into view, instead of per-card.
+  var singles = [];
+  var galleries = [];
+
+  els.forEach(function (el) {
+    var list = el.closest('.procedures__list');
+    if (!list) {
+      singles.push(el);
+      return;
+    }
+    var group = galleries.filter(function (g) { return g.list === list; })[0];
+    if (!group) {
+      group = { list: list, els: [] };
+      galleries.push(group);
+    }
+    group.els.push(el);
+  });
+
   var observer = new IntersectionObserver(function (observerEntries) {
     observerEntries.forEach(function (entry) {
-      if (entry.isIntersecting) {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      var group = galleries.filter(function (g) { return g.list === entry.target; })[0];
+      if (group) {
+        group.els.forEach(function (el) { el.classList.add('is-visible'); });
+      } else {
         entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.15 });
 
-  els.forEach(function (el) { observer.observe(el); });
+  singles.forEach(function (el) { observer.observe(el); });
+  galleries.forEach(function (group) { observer.observe(group.list); });
 })();
 
 /* === Carousels (procedures, specialists, ...): scroll progress bar === */
@@ -266,15 +295,40 @@
     if (index <= EDGE_LOW || index >= EDGE_HIGH) {
       var shift = index <= EDGE_LOW ? BUFFER_SHIFT : -BUFFER_SHIFT;
       suppressScroll = true;
+      // Scroll-snap fights an instant scrollLeft jump that doesn't land
+      // exactly on a snap point, correcting itself right after and reading as
+      // a second, jerky hop. Suspending it for the jump avoids that fight.
+      track.style.scrollSnapType = 'none';
       track.scrollLeft += shift * stepWidth();
       setActive(index + shift);
       applyTransforms();
-      suppressScroll = false;
+      requestAnimationFrame(function () {
+        track.style.scrollSnapType = '';
+        suppressScroll = false;
+      });
     }
   }
 
   var ticking = false;
   var settleTimer = null;
+  function scheduleRecenter() {
+    clearTimeout(settleTimer);
+    // Touch/trackpad momentum keeps moving scrollLeft well after the last
+    // scroll event fires — recentering against the buffer while that's still
+    // in flight fights the native inertia and jerks. Poll until scrollLeft
+    // actually stops changing before doing the buffer math.
+    var lastLeft = track.scrollLeft;
+    function check() {
+      if (suppressScroll) return;
+      if (track.scrollLeft === lastLeft) {
+        recenterIfNearEdge();
+      } else {
+        lastLeft = track.scrollLeft;
+        settleTimer = setTimeout(check, 80);
+      }
+    }
+    settleTimer = setTimeout(check, 100);
+  }
   function onScroll() {
     if (suppressScroll) return;
     if (!ticking) {
@@ -284,8 +338,7 @@
         applyTransforms();
       });
     }
-    clearTimeout(settleTimer);
-    settleTimer = setTimeout(recenterIfNearEdge, 120);
+    scheduleRecenter();
   }
 
   var scrollAnimationId = 0;

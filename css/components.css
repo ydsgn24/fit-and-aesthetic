@@ -1177,6 +1177,51 @@ button {
   display: block;
 }
 
+/* === CTA dark (reusable) — full-bleed photo background, heavy dark overlay ===
+   Every .cta-dark on the page shares this one component; change it here, not
+   per-instance. Reuses .booking__heading / .booking__subtext / .hero__cta for
+   typography and the button, since their tokens already match this design. */
+
+.cta-dark {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-64);
+  width: 100%;
+  padding: var(--spacing-8) var(--spacing-8) 100px;
+  overflow: hidden;
+}
+
+.cta-dark__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-surface-near-black);
+}
+
+.cta-dark__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cta-dark__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-overlay-medium);
+}
+
+.cta-dark__mark {
+  width: 91px;
+  height: 97px;
+  flex-shrink: 0;
+}
+
 /* === Equipment carousel: swipe sideways to bring the next machine into focus === */
 
 .equipment {
