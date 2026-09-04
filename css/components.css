@@ -985,7 +985,7 @@ button {
 .direction-card__title {
   position: absolute;
   left: 12px;
-  bottom: 62.83px;
+  bottom: 12px;
   width: calc(100% - 24px);
 }
 
@@ -1096,7 +1096,7 @@ button {
 .result-card__title {
   position: absolute;
   left: 12px;
-  bottom: 63.66px;
+  bottom: 12px;
   width: calc(100% - 24px);
 }
 
@@ -1129,8 +1129,8 @@ button {
 .booking__body {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  gap: var(--spacing-32);
   width: 100%;
 }
 
@@ -1191,7 +1191,7 @@ button {
   justify-content: flex-end;
   gap: var(--spacing-64);
   width: 100%;
-  padding: var(--spacing-8) var(--spacing-8) 100px;
+  padding: 230px var(--spacing-8) 100px;
   overflow: hidden;
 }
 
@@ -1217,9 +1217,24 @@ button {
 }
 
 .cta-dark__mark {
+  display: block;
   width: 91px;
   height: 97px;
   flex-shrink: 0;
+  overflow: visible;
+}
+
+.cta-dark__mark-path {
+  fill: var(--color-white);
+  fill-opacity: 0;
+  stroke: var(--color-white);
+  stroke-width: 1;
+  transition: stroke-dashoffset 1.1s var(--ease-reveal),
+    fill-opacity 0.6s var(--ease-reveal) 0.9s;
+}
+
+.cta-dark__mark.is-drawn .cta-dark__mark-path {
+  fill-opacity: 1;
 }
 
 /* === Equipment carousel: swipe sideways to bring the next machine into focus === */
@@ -1289,10 +1304,12 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: scale(0.72);
+  transform: scale(0.72) translateZ(0);
   filter: blur(var(--blur-equipment-side));
   transition: transform 0.35s ease, filter 0.35s ease;
   will-change: transform, filter;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .equipment__slide.is-active {
@@ -1739,7 +1756,6 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.2s ease;
 }
 
 .process-steps {
@@ -1819,13 +1835,22 @@ button {
 .booking-simple {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: var(--spacing-64);
   width: 100%;
-  padding: var(--spacing-8) var(--spacing-8) 100px;
+  padding: var(--spacing-8) var(--spacing-8) var(--spacing-64);
   background-color: var(--color-surface-near-black);
   overflow: hidden;
+}
+
+.booking-simple .booking__copy {
+  align-items: flex-start;
+}
+
+.booking-simple .booking__heading,
+.booking-simple .booking__subtext {
+  text-align: left;
 }
 
 /* === Footer === */

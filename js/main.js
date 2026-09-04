@@ -168,6 +168,46 @@
   galleries.forEach(function (group) { observer.observe(group.list); });
 })();
 
+/* === CTA dark mark: draws the FA glyph in along its own outline, then fills —
+   independent of the generic reveal-io fade running on the same element. === */
+(function () {
+  var marks = Array.prototype.slice.call(document.querySelectorAll('.cta-dark__mark'));
+  if (!marks.length) return;
+
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var instances = marks.map(function (svg) {
+    var paths = Array.prototype.slice.call(svg.querySelectorAll('.cta-dark__mark-path'));
+    paths.forEach(function (path) {
+      var length = path.getTotalLength();
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+    });
+    return { svg: svg, paths: paths };
+  });
+
+  function draw(inst) {
+    inst.svg.classList.add('is-drawn');
+    inst.paths.forEach(function (path) { path.style.strokeDashoffset = 0; });
+  }
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    instances.forEach(draw);
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      var inst = instances.filter(function (i) { return i.svg === entry.target; })[0];
+      if (inst) draw(inst);
+    });
+  }, { threshold: 0.15 });
+
+  instances.forEach(function (inst) { observer.observe(inst.svg); });
+})();
+
 /* === Carousels (procedures, specialists, ...): scroll progress bar === */
 (function () {
   var carousels = Array.prototype.slice.call(document.querySelectorAll('.procedures'));
@@ -260,7 +300,7 @@
     return (b.left + b.width / 2) - (a.left + a.width / 2);
   }
 
-  function applyTransforms() {
+  function applyTransforms(live) {
     var trackRect = track.getBoundingClientRect();
     var centerX = trackRect.left + trackRect.width / 2;
     var closestIndex = activeIndex;
@@ -275,7 +315,20 @@
       var scale = 1 - t * 0.35;
       var blur = t * 3.25;
 
-      slide.style.transform = 'scale(' + scale.toFixed(3) + ')';
+      // While the finger/wheel is actively driving scroll, applyTransforms
+      // runs every rAF tick — with the CSS transition left on, each of those
+      // per-frame updates restarts a fresh 0.35s ease on top of one still
+      // playing, so scale/blur perpetually lag and rubber-band behind the
+      // real scroll position instead of tracking it. Cut the transition for
+      // these live updates; keep it for discrete jumps (recenter, click a
+      // slide, the "Листай" button) where an eased settle looks intentional.
+      slide.style.transition = live ? 'none' : '';
+
+      // translateZ(0) keeps every slide on its own GPU layer from the very
+      // first paint — without it, the browser only promotes a slide once a
+      // transform/filter transition first actually runs, which is exactly
+      // the (expensive, janky) first couple of scroll gestures.
+      slide.style.transform = 'scale(' + scale.toFixed(3) + ') translateZ(0)';
       slide.style.filter = t < 0.02 ? 'blur(0)' : 'blur(' + blur.toFixed(2) + 'px)';
 
       if (dist < closestDist) {
@@ -335,7 +388,7 @@
       ticking = true;
       requestAnimationFrame(function () {
         ticking = false;
-        applyTransforms();
+        applyTransforms(true);
       });
     }
     scheduleRecenter();
@@ -453,44 +506,3 @@
   });
 })();
 
-/* === Photo rotator: advances ONE slot at a time (top, then bottom-left, then
-   bottom-right, then back to top...) on a single shared beat — not all at once.
-   Plain crossfade; blur is reserved for the .reveal-io first appearance only. === */
-(function () {
-  var imgs = Array.prototype.slice.call(document.querySelectorAll('.process-photo__img[data-photo-pool]'));
-  if (!imgs.length) return;
-
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) return; // keep the first photo static, no cycling
-
-  var INTERVAL = 1000;
-  var FADE_DURATION = 200;
-
-  var slots = imgs
-    .map(function (img) {
-      var pool;
-      try {
-        pool = JSON.parse(img.getAttribute('data-photo-pool'));
-      } catch (e) {
-        return null;
-      }
-      if (!pool || pool.length < 2) return null;
-      return { img: img, pool: pool, index: parseInt(img.getAttribute('data-photo-index'), 10) || 0 };
-    })
-    .filter(Boolean);
-
-  if (!slots.length) return;
-
-  var current = 0;
-
-  setInterval(function () {
-    var slot = slots[current];
-    slot.img.style.opacity = '0';
-    setTimeout(function () {
-      slot.index = (slot.index + 1) % slot.pool.length;
-      slot.img.src = slot.pool[slot.index];
-      slot.img.style.opacity = '1';
-    }, FADE_DURATION);
-    current = (current + 1) % slots.length;
-  }, INTERVAL);
-})();
