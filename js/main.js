@@ -280,7 +280,33 @@
   var EDGE_HIGH = slides.length - 2;
 
   var activeIndex = 3; // a 'bbl' slide, roughly centered in the buffer
+  var activeKey = null;
   var suppressScroll = false;
+
+  // Swap the feature list for the newly active machine by revealing its
+  // items top-to-bottom through a blur, instead of an instant hidden/shown
+  // flip — mirrors the buffer-wraparound guard below: recentering can move
+  // activeIndex without changing the machine (data-item), so this only runs
+  // when the actual key changes.
+  function setListForKey(key) {
+    lists.forEach(function (list) {
+      var items = Array.prototype.slice.call(list.querySelectorAll('li'));
+      if (list.getAttribute('data-list-for') === key) {
+        list.hidden = false;
+        items.forEach(function (li, i) {
+          li.style.setProperty('--item-order', i);
+          li.classList.remove('is-shown');
+        });
+        void list.offsetWidth; // force reflow so the removed class registers before re-adding
+        requestAnimationFrame(function () {
+          items.forEach(function (li) { li.classList.add('is-shown'); });
+        });
+      } else {
+        list.hidden = true;
+        items.forEach(function (li) { li.classList.remove('is-shown'); });
+      }
+    });
+  }
 
   function setActive(index) {
     activeIndex = index;
@@ -289,9 +315,10 @@
       slide.classList.toggle('is-active', i === index);
     });
     nameEl.textContent = NAMES[key] || '';
-    lists.forEach(function (list) {
-      list.hidden = list.getAttribute('data-list-for') !== key;
-    });
+    if (key !== activeKey) {
+      activeKey = key;
+      setListForKey(key);
+    }
   }
 
   function stepWidth() {
