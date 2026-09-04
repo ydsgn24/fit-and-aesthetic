@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIT & AESTHETIC</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/components.css">
+  <noscript>
+    <style>
+      #preloader { display: none; }
+      .reveal { opacity: 1 !important; filter: none !important; transform: none !important; }
+      .word { color: var(--color-text-dark) !important; }
+      .reveal-io { opacity: 1 !important; filter: none !important; transform: none !important; }
+    </style>
+  </noscript>
+</head>
+<body>
+
+  <div class="preloader" id="preloader">
+    <div class="hero__bg">
+      <img
+        class="hero__bg-image"
+        src="images/hero-bg.jpg"
+        alt=""
+        loading="eager"
+      >
+      <div class="hero__overlay"></div>
+    </div>
+
+    <div class="hero__header">
+      <img class="hero__logo" src="images/logo.svg" alt="FIT & AESTHETIC">
+      <button class="hero__menu" type="button" tabindex="-1">
+        <img class="hero__menu-dot" src="images/dot-menu.svg" alt="" loading="lazy">
+        <p class="preloader__menu-label">Меню</p>
+      </button>
+    </div>
+
+    <p class="preloader__counter" id="preloaderCounter" aria-hidden="true">0%</p>
+  </div>
+
+  <section class="hero">
+    <div class="hero__bg">
+      <img
+        class="hero__bg-image"
+        src="images/hero-bg.jpg"
+        alt="Коридор клиники FIT & AESTHETIC в Dubai Creek Harbour"
+        loading="eager"
+      >
+      <div class="hero__overlay"></div>
+    </div>
+
+    <div class="hero__header">
+      <img class="hero__logo" src="images/logo.svg" alt="FIT & AESTHETIC">
+      <button class="hero__menu" type="button">
+        <img class="hero__menu-dot" src="images/dot-menu.svg" alt="" loading="lazy">
+        <p class="hero__menu-label">Меню</p>
+      </button>
+    </div>
+
+    <div class="hero__address reveal" style="--reveal-order: 0;">
+      <p>Dubai Creek Harbour</p>
+      <p>DHA Licensed Clinic</p>
+    </div>
+
+    <div class="hero__content">
+      <h1 class="hero__title">
+        <p class="reveal" style="--reveal-order: 1;">Красота, основанная</p>
+        <p class="reveal" style="--reveal-order: 2;">на <em class="hero__title-accent">медицинском подходе</em></p>
+      </h1>
+
+      <button class="hero__cta reveal" style="--reveal-order: 3;" type="button">
+        <img class="hero__cta-dot" src="images/dot-cta.svg" alt="" loading="lazy">
+        <p class="hero__cta-label">Записаться на консультацию</p>
+      </button>
+    </div>
+  </section>
+
+  <section class="about">
+    <p class="about__text word-reveal">
+      <span class="about__text-lead">В Fit&amp;Aesthetic</span>
+      <span class="word">мы</span>
+      <span class="word">объединяем</span>
+      <span class="word">медицинскую</span>
+      <span class="word">экспертизу,</span>
+      <span class="word">передовые</span>
+      <span class="word">технологии</span>
+      <span class="word">и</span>
+      <span class="word">персонализированный</span>
+      <span class="word">подход,</span>
+      <span class="word">чтобы</span>
+      <span class="word">создавать</span>
+      <span class="word">решения,</span>
+      <span class="word">которые</span>
+      <span class="word">подчеркивают</span>
+      <span class="word">вашу</span>
+      <span class="word">естественную</span>
+      <span class="word">красоту</span>
+      <span class="word">и</span>
+      <span class="word">помогают</span>
+      <span class="word">чувствовать</span>
+      <span class="word">себя</span>
+      <span class="word">уверенно</span>
+      <span class="word">в</span>
+      <span class="word">своем</span>
+      <span class="word">теле.</span>
+    </p>
+
+    <div class="about__body">
+      <a class="about__link" href="#">
+        <img class="about__link-dot" src="images/dot-link.svg" alt="" loading="lazy">
+        <span>Смотреть все процедуры</span>
+      </a>
+
+      <div class="procedures">
+        <ul class="procedures__list">
+          <li class="procedure-card">
+            <img class="procedure-card__bg" src="images/procedure-card.jpg" alt="Курс прессотерапии 5+1" loading="lazy">
+            <div class="procedure-card__gradient"></div>
+            <div class="procedure-card__badge">
+              <img class="procedure-card__badge-icon" src="images/icon-fire.svg" alt="" loading="lazy">
+              <span>Body treatments</span>
+            </div>
+            <div class="procedure-card__info">
+              <p class="procedure-card__title">
+                <span>Курс</span>
+                <span>прессотерапии 5+1</span>
+              </p>
+              <div class="procedure-card__footer">
+                <div class="procedure-card__price">
+                  <span class="procedure-card__price-old">3000 AED</span>
+                  <span class="procedure-card__price-new">2500 AED</span>
+                </div>
+                <button class="procedure-card__cta" type="button">
+                  <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+                  <span>Детальнее</span>
+                </button>
+              </div>
+            </div>
+          </li>
+
+          <li class="procedure-card">
+            <img class="procedure-card__bg" src="images/procedure-card.jpg" alt="Курс прессотерапии 5+1" loading="lazy">
+            <div class="procedure-card__gradient"></div>
+            <div class="procedure-card__badge">
+              <img class="procedure-card__badge-icon" src="images/icon-fire.svg" alt="" loading="lazy">
+              <span>Body treatments</span>
+            </div>
+            <div class="procedure-card__info">
+              <p class="procedure-card__title">
+                <span>Курс</span>
+                <span>прессотерапии 5+1</span>
+              </p>
+              <div class="procedure-card__footer">
+                <div class="procedure-card__price">
+                  <span class="procedure-card__price-old">3000 AED</span>
+                  <span class="procedure-card__price-new">2500 AED</span>
+                </div>
+                <button class="procedure-card__cta" type="button">
+                  <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+                  <span>Детальнее</span>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="procedures__progress">
+          <div class="procedures__progress-thumb"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-stats">
+    <div class="about-stats__intro">
+      <p class="about-stats__heading word-reveal">
+        <span class="about-stats__heading-lead">Fit&amp;Aesthetic</span>
+        <span class="word">уже</span>
+        <span class="word">2</span>
+        <span class="word">года</span>
+        <span class="word">и</span>
+        <span class="word">более</span>
+        <span class="word">16</span>
+        <span class="word">лет</span>
+        <span class="word">опыта</span>
+        <span class="word">в</span>
+        <span class="word">индустрии</span>
+        <span class="word">эстетической</span>
+        <span class="word">медицины</span>
+      </p>
+
+      <div class="stats-grid">
+        <div class="stats-grid__row reveal-io" style="--reveal-order: 0;">
+          <div class="stat-card">
+            <p class="stat-card__number">250+</p>
+            <p class="stat-card__label">
+              <span>случаев успешного</span>
+              <span>лечения акне</span>
+            </p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__number">120+</p>
+            <p class="stat-card__label">случаев успешного лечения розацеа</p>
+          </div>
+        </div>
+        <div class="stats-grid__row reveal-io" style="--reveal-order: 0;">
+          <div class="stat-card">
+            <p class="stat-card__number">1k+</p>
+            <p class="stat-card__label">эстетических преображений лица</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__number">2k+</p>
+            <p class="stat-card__label">
+              <span>пациентов</span>
+              <span>с улучшенным качеством кожи</span>
+            </p>
+          </div>
+        </div>
+        <div class="stats-grid__row reveal-io" style="--reveal-order: 0;">
+          <div class="stat-card">
+            <p class="stat-card__number">300+</p>
+            <p class="stat-card__label">программ по управлению весом</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__number">-40 кг</p>
+            <p class="stat-card__label">максимальный индивидуальный результат снижения веса</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-stats__content">
+      <div class="about-stats__photo-block">
+        <img class="about-stats__photo reveal-io" src="images/about-team.jpg" alt="Команда клиники FIT & AESTHETIC Medical Spa" loading="lazy">
+
+        <p class="about-stats__copy about-stats__copy--solid">Fit&amp;Aesthetic - Клиника эстетической медицины нового поколения в Дубае, где за каждым решением стоит команда лицензированных врачей и специалистов с более чем 16-летним опытом в эстетической медицине.</p>
+
+        <p class="about-stats__copy">
+          <span class="about-stats__copy-emphasis">Мы смотрим на красоту комплексно,</span>
+          <span> учитывая не только то, что вы хотите изменить, но и то, что стоит за этим: состояние кожи, особенности тела, образ жизни и долгосрочные цели. </span>
+          <span class="about-stats__copy-emphasis">При необходимости подход включает консультации специалистов и лабораторную диагностику, чтобы сформировать целостное понимание ваших потребностей.</span>
+        </p>
+
+        <p class="about-stats__copy">
+          <span class="about-stats__copy-emphasis">Мы тщательно подбираем технологии, оборудование и процедуры, чтобы работать с каждым запросом комплексно </span>
+          <span>— от качества кожи и омоложения до коррекции тела, управления весом и anti-age.</span>
+        </p>
+      </div>
+
+      <div class="about-stats__accent-row">
+        <div class="about-accent reveal-io">
+          <img class="about-accent__img" src="images/about-accent.jpg" alt="" loading="lazy">
+        </div>
+      </div>
+
+      <div class="about-stats__final">
+        <p class="about-stats__heading word-reveal">
+          <span class="about-stats__heading-lead">Наша цель </span>
+          <span class="word">—</span>
+          <span class="word">не</span>
+          <span class="word">изменить</span>
+          <span class="word">вашу</span>
+          <span class="word about-stats__heading-accent">индивидуальность,</span>
+          <br>
+          <span class="word">а</span>
+          <span class="word">подчеркнуть</span>
+          <span class="word">её</span>
+        </p>
+
+        <div class="avatars">
+          <div class="avatars__stack">
+            <img class="avatars__item reveal-io" style="--reveal-order: 0;" src="images/avatar-1.jpg" alt="" loading="lazy">
+            <img class="avatars__item reveal-io" style="--reveal-order: 1;" src="images/avatar-2.jpg" alt="" loading="lazy">
+            <img class="avatars__item reveal-io" style="--reveal-order: 2;" src="images/avatar-3.jpg" alt="" loading="lazy">
+            <img class="avatars__item reveal-io" style="--reveal-order: 3;" src="images/avatar-4.jpg" alt="" loading="lazy">
+            <img class="avatars__item reveal-io" style="--reveal-order: 4;" src="images/avatar-1.jpg" alt="" loading="lazy">
+            <img class="avatars__item reveal-io" style="--reveal-order: 5;" src="images/avatar-4.jpg" alt="" loading="lazy">
+          </div>
+          <p class="avatars__text">
+            <span>3 500+</span>
+            <span>пациентов</span>
+          </p>
+        </div>
+
+        <button class="about-stats__cta" type="button">
+          <img src="images/dot-cta-dark.svg" alt="" loading="lazy">
+          <span>Записаться на консультацию</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="specialists">
+    <p class="specialists__heading">
+      <span>Наши </span>
+      <em class="about-stats__heading-accent">специалисты</em>
+    </p>
+
+    <div class="procedures">
+      <ul class="procedures__list">
+        <li class="specialist-card reveal-io">
+          <img class="specialist-card__bg" src="images/specialist-1.jpg" alt="Специалист клиники FIT & AESTHETIC" loading="lazy">
+          <div class="specialist-card__gradient"></div>
+          <div class="specialist-card__info">
+            <p class="specialist-card__name">ФИО</p>
+            <p class="specialist-card__role">Должность</p>
+          </div>
+          <div class="specialist-card__more">
+            <img src="images/dot-cta-dark.svg" alt="" loading="lazy">
+            <span>Подробнее</span>
+          </div>
+        </li>
+
+        <li class="specialist-card reveal-io">
+          <img class="specialist-card__bg" src="images/specialist-1.jpg" alt="Специалист клиники FIT & AESTHETIC" loading="lazy">
+          <div class="specialist-card__gradient"></div>
+          <div class="specialist-card__info">
+            <p class="specialist-card__name">ФИО</p>
+            <p class="specialist-card__role">Должность</p>
+          </div>
+          <div class="specialist-card__more">
+            <img src="images/dot-cta-dark.svg" alt="" loading="lazy">
+            <span>Подробнее</span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="procedures__progress">
+        <div class="procedures__progress-thumb"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="directions">
+    <p class="directions__heading">Направления</p>
+
+    <div class="directions__list">
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+
+      <div class="direction-card reveal-io">
+        <img class="direction-card__bg" src="images/procedure-card.jpg" alt="" loading="lazy">
+        <div class="direction-card__gradient"></div>
+        <p class="procedure-card__title direction-card__title">
+          <span>Название</span>
+          <span>направления</span>
+        </p>
+        <button class="procedure-card__cta direction-card__cta" type="button">
+          <img src="images/dot-cta-black.svg" alt="" loading="lazy">
+          <span>Подробнее</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="results">
+    <p class="results__heading">
+      <span>Результаты </span>
+      <em class="about-stats__heading-accent">До/После</em>
+    </p>
+
+    <div class="filters" id="resultsFilters">
+      <button class="filter-chip is-selected" type="button">
+        <img class="filter-chip__dot" src="images/dot-cta-dark.svg" alt="" loading="lazy">
+        <span>Все</span>
+      </button>
+      <button class="filter-chip" type="button">
+        <img class="filter-chip__dot" src="images/dot-cta-dark.svg" alt="" loading="lazy">
+        <span>Процедура</span>
+      </button>
+      <button class="filter-chip" type="button">
+        <img class="filter-chip__dot" src="images/dot-cta-dark.svg" alt="" loading="lazy">
+        <span>Процедура</span>
+      </button>
+      <button class="filter-chip" type="button">
+        <img class="filter-chip__dot" src="images/dot-cta-dark.svg" alt="" loading="lazy">
+        <span>Процедура</span>
+      </button>
+      <button class="filter-chip" type="button">
+        <img class="filter-chip__dot" src="images/dot-cta-dark.svg" alt="" loading="lazy">
+        <span>Процедура</span>
+      </button>
+    </div>
+
+    <div class="procedures">
+      <ul class="procedures__list">
+        <li class="result-card reveal-io">
+          <img class="result-card__bg" src="images/result-before-after.jpg" alt="Результат до и после процедуры" loading="lazy">
+          <p class="procedure-card__title result-card__title">
+            <span>Название</span>
+            <span>процедуры</span>
+          </p>
+        </li>
+
+        <li class="result-card reveal-io">
+          <img class="result-card__bg" src="images/result-before-after.jpg" alt="Результат до и после процедуры" loading="lazy">
+          <p class="procedure-card__title result-card__title">
+            <span>Название</span>
+            <span>процедуры</span>
+          </p>
+        </li>
+      </ul>
+
+      <div class="procedures__progress">
+        <div class="procedures__progress-thumb"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-simple">
+    <div class="booking__photo reveal-io" style="--reveal-order: 0;">
+      <img class="booking__photo-img" src="images/specialist-1.jpg" alt="Клиника FIT & AESTHETIC" loading="lazy">
+      <img class="booking__mark" src="images/logo-mark.svg" alt="FIT & AESTHETIC" loading="lazy">
+    </div>
+
+    <div class="booking__body">
+      <div class="booking__copy reveal-io" style="--reveal-order: 1;">
+        <p class="booking__heading">
+          <span>Записаться на </span>
+          <em>онлайн-консультацию</em>
+        </p>
+        <p class="booking__subtext">
+          <span>Оставьте нам сообщение с вашими</span>
+          <span>контактными данными</span>
+        </p>
+      </div>
+    </div>
+
+    <button class="hero__cta reveal-io" style="--reveal-order: 2;" type="button">
+      <img class="hero__cta-dot" src="images/dot-cta.svg" alt="" loading="lazy">
+      <p class="hero__cta-label">Записаться на консультацию</p>
+    </button>
+  </section>
+
+  <section class="equipment">
+    <p class="equipment__heading">
+      <span>Технологии</span>
+      <br>
+      <span>и </span><em class="about-stats__heading-accent">оборудование</em>
+    </p>
+
+    <div class="equipment__body">
+      <div class="equipment__viewport">
+        <ul class="equipment__track" id="equipmentTrack">
+          <li class="equipment__slide" data-item="elixir">
+            <img class="equipment__img" src="images/equipment-elixir-md.png" alt="Аппарат Elixir MD" loading="lazy">
+          </li>
+          <li class="equipment__slide" data-item="bbl">
+            <img class="equipment__img" src="images/equipment-bbl-hero.jpg" alt="Аппарат Soon BBL Hero" loading="lazy">
+          </li>
+          <li class="equipment__slide" data-item="elixir">
+            <img class="equipment__img" src="images/equipment-elixir-md.png" alt="Аппарат Elixir MD" loading="lazy">
+          </li>
+          <li class="equipment__slide" data-item="bbl">
+            <img class="equipment__img" src="images/equipment-bbl-hero.jpg" alt="Аппарат Soon BBL Hero" loading="lazy">
+          </li>
+          <li class="equipment__slide" data-item="elixir">
+            <img class="equipment__img" src="images/equipment-elixir-md.png" alt="Аппарат Elixir MD" loading="lazy">
+          </li>
+          <li class="equipment__slide" data-item="bbl">
+            <img class="equipment__img" src="images/equipment-bbl-hero.jpg" alt="Аппарат Soon BBL Hero" loading="lazy">
+          </li>
+          <li class="equipment__slide" data-item="elixir">
+            <img class="equipment__img" src="images/equipment-elixir-md.png" alt="Аппарат Elixir MD" loading="lazy">
+          </li>
+          <li class="equipment__slide" data-item="bbl">
+            <img class="equipment__img" src="images/equipment-bbl-hero.jpg" alt="Аппарат Soon BBL Hero" loading="lazy">
+          </li>
+        </ul>
+      </div>
+
+      <div class="equipment__info">
+        <p class="equipment__name" id="equipmentName">Soon BBL Hero</p>
+        <button class="equipment__next" id="equipmentNextBtn" type="button">
+          <span>Листай</span>
+          <img src="images/dot-cta.svg" alt="" loading="lazy">
+        </button>
+      </div>
+
+      <ol class="equipment__list" data-list-for="bbl">
+        <li><span class="equipment__list-index">01</span><p class="equipment__list-text">Стимуляция коллагена для более плотной кожи</p></li>
+        <li><span class="equipment__list-index">02</span><p class="equipment__list-text">Безболезненные процедуры с минимальным восстановлением</p></li>
+        <li><span class="equipment__list-index">03</span><p class="equipment__list-text">Коррекция пигментации и возрастных пятен</p></li>
+        <li><span class="equipment__list-index">04</span><p class="equipment__list-text">Фотоомоложение кожи</p></li>
+        <li><span class="equipment__list-index">05</span><p class="equipment__list-text">Уменьшение сосудистых изменений (купероз, сосудистая сетка)</p></li>
+        <li><span class="equipment__list-index">06</span><p class="equipment__list-text">Лечение акне и постакне-дефектов</p></li>
+      </ol>
+
+      <ol class="equipment__list" data-list-for="elixir" hidden>
+        <li><span class="equipment__list-index">01</span><p class="equipment__list-text">Стимуляция выработки коллагена и эластина</p></li>
+        <li><span class="equipment__list-index">02</span><p class="equipment__list-text">Детоксикация и очищение кожи</p></li>
+        <li><span class="equipment__list-index">03</span><p class="equipment__list-text">Ускорение восстановления после пластических процедур</p></li>
+        <li><span class="equipment__list-index">04</span><p class="equipment__list-text">Снижение отёков, покраснения и дискомфорта кожи</p></li>
+        <li><span class="equipment__list-index">05</span><p class="equipment__list-text">Улучшение микроциркуляции и общего состояния кожи</p></li>
+        <li><span class="equipment__list-index">06</span><p class="equipment__list-text">Повышение плотности и качества кожи, укрепление её структуры</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="trust">
+    <p class="trust__heading">
+      <span>Нам </span><em class="about-stats__heading-accent">доверяют</em>
+    </p>
+
+    <div class="procedures">
+      <ul class="procedures__list">
+        <li class="ugc-card reveal-io">
+          <img class="ugc-card__img" src="images/trust-instagram.jpg" alt="Отзыв клиентки в Instagram о FIT & AESTHETIC" loading="lazy">
+        </li>
+        <li class="ugc-card reveal-io">
+          <img class="ugc-card__img" src="images/trust-instagram.jpg" alt="Отзыв клиентки в Instagram о FIT & AESTHETIC" loading="lazy">
+        </li>
+      </ul>
+      <div class="procedures__progress">
+        <div class="procedures__progress-thumb"></div>
+      </div>
+    </div>
+
+    <div class="trust__summary">
+      <div class="trust__rating">
+        <div class="trust__rating-badge">
+          <img src="images/star-rating.svg" alt="" loading="lazy">
+          <span>4.8 / 5</span>
+        </div>
+        <p class="trust__rating-caption">на Google отзывах</p>
+      </div>
+
+      <a class="about-stats__cta" href="https://share.google/f7ek6sUpZePzxLEdZ" target="_blank" rel="noopener">
+        <img src="images/dot-cta-dark.svg" alt="" loading="lazy">
+        <span>Оставить отзыв</span>
+      </a>
+    </div>
+
+    <div class="procedures">
+      <ul class="procedures__list">
+        <li class="google-review-card reveal-io">
+          <div class="google-review-card__header">
+            <div class="google-review-card__author">
+              <div class="google-review-card__avatar">M</div>
+              <div>
+                <p class="google-review-card__author-name">Maryam</p>
+                <p class="google-review-card__time">1 месяц назад</p>
+              </div>
+            </div>
+            <img class="google-review-card__logo" src="images/google-logo.svg" alt="Google" loading="lazy">
+          </div>
+          <div class="google-review-card__stars">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+          </div>
+          <p class="google-review-card__text">Aula was very thoughtful during her ultrasound filler and she let me know where I have filler and she was also considerate</p>
+        </li>
+
+        <li class="google-review-card reveal-io">
+          <div class="google-review-card__header">
+            <div class="google-review-card__author">
+              <div class="google-review-card__avatar">M</div>
+              <div>
+                <p class="google-review-card__author-name">Maryam</p>
+                <p class="google-review-card__time">1 месяц назад</p>
+              </div>
+            </div>
+            <img class="google-review-card__logo" src="images/google-logo.svg" alt="Google" loading="lazy">
+          </div>
+          <div class="google-review-card__stars">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+            <img src="images/star-gold.svg" alt="" loading="lazy">
+          </div>
+          <p class="google-review-card__text">Aula was very thoughtful during her ultrasound filler and she let me know where I have filler and she was also considerate</p>
+        </li>
+      </ul>
+      <div class="procedures__progress">
+        <div class="procedures__progress-thumb"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-simple">
+    <div class="booking__photo reveal-io" style="--reveal-order: 0;">
+      <img class="booking__photo-img" src="images/specialist-1.jpg" alt="Клиника FIT & AESTHETIC" loading="lazy">
+      <img class="booking__mark" src="images/logo-mark.svg" alt="FIT & AESTHETIC" loading="lazy">
+    </div>
+
+    <div class="booking__body">
+      <div class="booking__copy reveal-io" style="--reveal-order: 1;">
+        <p class="booking__heading">
+          <span>Записаться на </span>
+          <em>онлайн-консультацию</em>
+        </p>
+        <p class="booking__subtext">
+          <span>Оставьте нам сообщение с вашими</span>
+          <span>контактными данными</span>
+        </p>
+      </div>
+    </div>
+
+    <button class="hero__cta reveal-io" style="--reveal-order: 2;" type="button">
+      <img class="hero__cta-dot" src="images/dot-cta.svg" alt="" loading="lazy">
+      <p class="hero__cta-label">Записаться на консультацию</p>
+    </button>
+  </section>
+
+  <section class="faq">
+    <p class="faq__heading">FAQ</p>
+
+    <div class="faq__list" id="faqList">
+      <div class="faq-item reveal-io" style="--reveal-order: 0;">
+        <button class="faq-item__question" type="button" aria-expanded="false">
+          <span>Вопрос</span>
+          <img class="faq-item__icon" src="images/icon-plus.svg" alt="" loading="lazy">
+        </button>
+        <div class="faq-item__answer">
+          <p>Ответ на вопрос</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-io" style="--reveal-order: 1;">
+        <button class="faq-item__question" type="button" aria-expanded="false">
+          <span>Вопрос</span>
+          <img class="faq-item__icon" src="images/icon-plus.svg" alt="" loading="lazy">
+        </button>
+        <div class="faq-item__answer">
+          <p>Ответ на вопрос</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-io" style="--reveal-order: 2;">
+        <button class="faq-item__question" type="button" aria-expanded="false">
+          <span>Вопрос</span>
+          <img class="faq-item__icon" src="images/icon-plus.svg" alt="" loading="lazy">
+        </button>
+        <div class="faq-item__answer">
+          <p>Ответ на вопрос</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-io" style="--reveal-order: 3;">
+        <button class="faq-item__question" type="button" aria-expanded="false">
+          <span>Вопрос</span>
+          <img class="faq-item__icon" src="images/icon-plus.svg" alt="" loading="lazy">
+        </button>
+        <div class="faq-item__answer">
+          <p>Ответ на вопрос</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-io" style="--reveal-order: 4;">
+        <button class="faq-item__question" type="button" aria-expanded="false">
+          <span>Вопрос</span>
+          <img class="faq-item__icon" src="images/icon-plus.svg" alt="" loading="lazy">
+        </button>
+        <div class="faq-item__answer">
+          <p>Ответ на вопрос</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-io" style="--reveal-order: 5;">
+        <button class="faq-item__question" type="button" aria-expanded="false">
+          <span>Вопрос</span>
+          <img class="faq-item__icon" src="images/icon-plus.svg" alt="" loading="lazy">
+        </button>
+        <div class="faq-item__answer">
+          <p>Ответ на вопрос</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="about-stats__cta" type="button">
+      <img src="images/dot-cta.svg" alt="" loading="lazy">
+      <span>Записаться на консультацию</span>
+    </button>
+  </section>
+
+  <section class="process">
+    <div class="process-photo process-photo--large reveal-io" style="--reveal-order: 0;">
+      <img
+        class="process-photo__img"
+        src="images/specialist-1.jpg"
+        data-photo-pool='["images/specialist-1.jpg","images/process-reception.jpg","images/process-tea-tray.jpg"]'
+        data-photo-index="0"
+        alt="Клиника FIT & AESTHETIC"
+        loading="lazy"
+      >
+    </div>
+
+    <div class="process-photos-row">
+      <div class="process-photo process-photo--small reveal-io" style="--reveal-order: 1;">
+        <img
+          class="process-photo__img"
+          src="images/process-reception.jpg"
+          data-photo-pool='["images/process-reception.jpg","images/process-tea-tray.jpg","images/specialist-1.jpg"]'
+          data-photo-index="0"
+          alt="Приём в клинике"
+          loading="lazy"
+        >
+      </div>
+      <div class="process-photo process-photo--small reveal-io" style="--reveal-order: 2;">
+        <img
+          class="process-photo__img"
+          src="images/process-tea-tray.jpg"
+          data-photo-pool='["images/process-tea-tray.jpg","images/specialist-1.jpg","images/process-reception.jpg"]'
+          data-photo-index="0"
+          alt="Интерьер клиники"
+          loading="lazy"
+        >
+      </div>
+    </div>
+
+    <ol class="process-steps">
+      <li class="process-step reveal-io" style="--reveal-order: 3;">
+        <span class="process-step__index">01</span>
+        <div class="process-step__body">
+          <p class="process-step__title">Записаться на приём</p>
+          <p class="process-step__desc">Оставьте нам сообщение с вашими контактными данными, и мы свяжемся с вами как можно скорее.</p>
+        </div>
+      </li>
+
+      <li class="process-step reveal-io" style="--reveal-order: 4;">
+        <span class="process-step__index">02</span>
+        <div class="process-step__body">
+          <p class="process-step__title">Проконсультируйтесь с лицензированным специалистом по эстетике</p>
+          <p class="process-step__desc">Обсудите с нашим лицензированным специалистом по эстетике план лечения, адаптированный к вашим уникальным потребностям.</p>
+        </div>
+      </li>
+
+      <li class="process-step reveal-io" style="--reveal-order: 5;">
+        <span class="process-step__index">03</span>
+        <div class="process-step__body">
+          <p class="process-step__title">Начните своё путешествие</p>
+          <p class="process-step__desc">Испытайте наши передовые процедуры и наслаждайтесь преобразованием, достигая своих целей в области здоровья и красоты.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="booking-simple">
+    <div class="booking__photo reveal-io" style="--reveal-order: 0;">
+      <img class="booking__photo-img" src="images/specialist-1.jpg" alt="Клиника FIT & AESTHETIC" loading="lazy">
+      <img class="booking__mark" src="images/logo-mark.svg" alt="FIT & AESTHETIC" loading="lazy">
+    </div>
+
+    <div class="booking__body">
+      <div class="booking__copy reveal-io" style="--reveal-order: 1;">
+        <p class="booking__heading">
+          <span>Записаться на </span>
+          <em>онлайн-консультацию</em>
+        </p>
+        <p class="booking__subtext">
+          <span>Оставьте нам сообщение с вашими</span>
+          <span>контактными данными</span>
+        </p>
+      </div>
+    </div>
+
+    <button class="hero__cta reveal-io" style="--reveal-order: 2;" type="button">
+      <img class="hero__cta-dot" src="images/dot-cta.svg" alt="" loading="lazy">
+      <p class="hero__cta-label">Записаться на консультацию</p>
+    </button>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__section reveal-io" style="--reveal-order: 0;">
+      <div class="footer__group">
+        <p>Summer 3 Creek Beach West,</p>
+        <p>Dubai, UAE</p>
+      </div>
+      <div class="footer__group">
+        <p>Monday to Saturday: 9am-8pm</p>
+        <p>Sunday Closed</p>
+      </div>
+    </div>
+
+    <div class="footer__section reveal-io" style="--reveal-order: 1;">
+      <p>+971527000517</p>
+      <a href="mailto:info@fitandaesthetics.ae">info@fitandaesthetics.ae</a>
+      <a href="https://instagram.com/fitandaesthetic.ae" target="_blank" rel="noopener">Instagram</a>
+    </div>
+
+    <img class="footer__logo reveal-io" style="--reveal-order: 2;" src="images/logo-footer.svg" alt="FIT & AESTHETIC" width="375" height="35" loading="lazy">
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

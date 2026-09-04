@@ -1,0 +1,92 @@
+:root {
+  /* === Colors === */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-text-dark: #313131;
+  --color-text-muted: #D0CFCF;
+  --color-text-body: #101010;
+  --color-text-faint: #9F9F9F;
+  --color-surface-muted: #F6F6F6;
+  --color-surface-near-black: #171717;
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.8);
+  --color-overlay-dark: rgba(0, 0, 0, 0.2);
+  --color-overlay-gradient: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
+  --color-badge-bg: rgba(255, 255, 255, 0.2);
+  --color-border-light: #DEDDDD;
+  --color-text-index: #8F8E8E;
+
+  /* === Fonts === */
+  --font-family-primary: 'Inter Tight', sans-serif;
+  --font-family-accent: 'Playfair Display', serif;
+  --font-family-cta: 'Inter Tight', sans-serif;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --font-hero-size: 44px;
+  --font-hero-height: 1;
+  --font-hero-tracking: -0.44px;
+
+  --font-body-size: 14px;
+  --font-body-height: 1.1;
+  --font-body-tracking: -0.14px;
+  --font-body-height-normal: normal;
+
+  --font-cta-size: 16px;
+  --font-cta-height: 1.1;
+  --font-cta-tracking: -0.16px;
+
+  --font-counter-size: 64px;
+  --font-counter-height: 1;
+  --font-counter-tracking: -0.64px;
+
+  --font-about-size: 28px;
+  --font-about-height: 1.1;
+  --font-about-tracking: -0.28px;
+
+  --font-badge-size: 12px;
+  --font-badge-tracking: -0.12px;
+
+  --font-card-title-size: 24px;
+  --font-card-title-tracking: -0.24px;
+
+  --font-price-old-size: 16px;
+  --font-price-old-tracking: -0.16px;
+
+  --font-price-new-size: 26px;
+  --font-price-new-tracking: -0.26px;
+
+  --font-booking-heading-size: 34px;
+  --font-booking-heading-tracking: -0.34px;
+
+  /* === Spacing === */
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-64: 64px;
+
+  /* === Radius === */
+  --radius-menu: 8px;
+  --radius-pill: 999px;
+  --radius-progress: 99px;
+
+  /* === Card sizing === */
+  --procedure-card-width: 343px;
+  --procedure-card-height: 359px;
+  --specialist-card-height: 381.656px;
+  --ugc-card-height: 600px;
+  --google-review-card-height: 230px;
+
+  /* === Motion === */
+  --ease-reveal: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-reveal: 900ms;
+  --duration-preloader-fade: 900ms;
+  --blur-reveal: 16px;
+  --blur-preloader: 28px;
+  --blur-equipment-side: 3.25px;
+}

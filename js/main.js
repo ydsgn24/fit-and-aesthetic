@@ -1,0 +1,443 @@
+(function () {
+  var preloader = document.getElementById('preloader');
+  var counterEl = document.getElementById('preloaderCounter');
+  var hero = document.querySelector('.hero');
+
+  if (!preloader || !counterEl || !hero) return;
+
+  var DURATION = 2200;
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function reveal() {
+    preloader.classList.add('is-hidden');
+    hero.classList.add('is-revealed');
+
+    var cleaned = false;
+    function cleanup() {
+      if (cleaned) return;
+      cleaned = true;
+      if (preloader.parentNode) {
+        preloader.parentNode.removeChild(preloader);
+      }
+    }
+    preloader.addEventListener('transitionend', cleanup, { once: true });
+    setTimeout(cleanup, 1200);
+  }
+
+  if (prefersReducedMotion) {
+    counterEl.textContent = '100%';
+    reveal();
+    return;
+  }
+
+  var start = null;
+
+  function tick(now) {
+    if (start === null) start = now;
+    var elapsed = now - start;
+    var progress = Math.min(elapsed / DURATION, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    var value = Math.round(eased * 100);
+
+    counterEl.textContent = value + '%';
+
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      reveal();
+    }
+  }
+
+  requestAnimationFrame(tick);
+})();
+
+/* === Scroll-driven word reveal (darkens grey text word by word) === */
+(function () {
+  var containers = Array.prototype.slice.call(document.querySelectorAll('.word-reveal'));
+  if (!containers.length) return;
+
+  var entries = containers
+    .map(function (el) {
+      return { el: el, words: Array.prototype.slice.call(el.querySelectorAll('.word')) };
+    })
+    .filter(function (entry) { return entry.words.length; });
+
+  if (!entries.length) return;
+
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    entries.forEach(function (entry) {
+      entry.words.forEach(function (word) { word.classList.add('is-dark'); });
+    });
+    return;
+  }
+
+  var ticking = false;
+
+  function update() {
+    ticking = false;
+    var startTrigger = window.innerHeight * 0.85;
+    var endTrigger = window.innerHeight * 0.35;
+    var maxScrollY = document.documentElement.scrollHeight - window.innerHeight;
+    var atBottom = window.scrollY >= maxScrollY - 1;
+
+    entries.forEach(function (entry) {
+      var rect = entry.el.getBoundingClientRect();
+      var progress = (startTrigger - rect.top) / (startTrigger - endTrigger);
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Near the end of the page there may not be enough scroll room left
+      // to carry an element through the full trigger window — treat
+      // reaching the bottom of the document as completion instead.
+      if (atBottom && rect.top < startTrigger) {
+        progress = 1;
+      }
+
+      var revealCount = Math.round(progress * entry.words.length);
+      for (var i = 0; i < entry.words.length; i++) {
+        if (i < revealCount) {
+          entry.words[i].classList.add('is-dark');
+        } else {
+          entry.words[i].classList.remove('is-dark');
+        }
+      }
+    });
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
+/* === Reveal-on-scroll (blur-in for images) === */
+(function () {
+  var els = Array.prototype.slice.call(document.querySelectorAll('.reveal-io'));
+  if (!els.length) return;
+
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('is-visible'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (observerEntries) {
+    observerEntries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  els.forEach(function (el) { observer.observe(el); });
+})();
+
+/* === Carousels (procedures, specialists, ...): scroll progress bar === */
+(function () {
+  var carousels = Array.prototype.slice.call(document.querySelectorAll('.procedures'));
+
+  carousels.forEach(function (carousel) {
+    var list = carousel.querySelector('.procedures__list');
+    var thumb = carousel.querySelector('.procedures__progress-thumb');
+    if (!list || !thumb) return;
+
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var scrollWidth = list.scrollWidth;
+      var clientWidth = list.clientWidth;
+      var scrollLeft = list.scrollLeft;
+      var maxScroll = scrollWidth - clientWidth;
+
+      var widthPercent = Math.min(100, (clientWidth / scrollWidth) * 100);
+      var leftPercent = maxScroll > 0
+        ? (scrollLeft / maxScroll) * (100 - widthPercent)
+        : 0;
+
+      thumb.style.width = widthPercent + '%';
+      thumb.style.left = leftPercent + '%';
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    list.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  });
+})();
+
+/* === Filter chips: single-select toggle === */
+(function () {
+  var groups = Array.prototype.slice.call(document.querySelectorAll('.filters'));
+
+  groups.forEach(function (group) {
+    var chips = Array.prototype.slice.call(group.querySelectorAll('.filter-chip'));
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-selected'); });
+        chip.classList.add('is-selected');
+      });
+    });
+  });
+})();
+
+/* === Equipment carousel: infinite loop — sides are never empty === */
+(function () {
+  var track = document.getElementById('equipmentTrack');
+  var nameEl = document.getElementById('equipmentName');
+  var nextBtn = document.getElementById('equipmentNextBtn');
+  if (!track || !nameEl) return;
+
+  var slides = Array.prototype.slice.call(track.querySelectorAll('.equipment__slide'));
+  var lists = Array.prototype.slice.call(document.querySelectorAll('.equipment__list'));
+  var NAMES = { bbl: 'Soon BBL Hero', elixir: 'Elixir MD' };
+
+  var BUFFER_SHIFT = 4; // half the slide count — same item repeats every 2, so this lands on an identical slide
+  var EDGE_LOW = 1;
+  var EDGE_HIGH = slides.length - 2;
+
+  var activeIndex = 3; // a 'bbl' slide, roughly centered in the buffer
+  var suppressScroll = false;
+
+  function setActive(index) {
+    activeIndex = index;
+    var key = slides[index].getAttribute('data-item');
+    slides.forEach(function (slide, i) {
+      slide.classList.toggle('is-active', i === index);
+    });
+    nameEl.textContent = NAMES[key] || '';
+    lists.forEach(function (list) {
+      list.hidden = list.getAttribute('data-list-for') !== key;
+    });
+  }
+
+  function stepWidth() {
+    var a = slides[0].getBoundingClientRect();
+    var b = slides[1].getBoundingClientRect();
+    return (b.left + b.width / 2) - (a.left + a.width / 2);
+  }
+
+  function applyTransforms() {
+    var trackRect = track.getBoundingClientRect();
+    var centerX = trackRect.left + trackRect.width / 2;
+    var closestIndex = activeIndex;
+    var closestDist = Infinity;
+
+    slides.forEach(function (slide, i) {
+      var rect = slide.getBoundingClientRect();
+      var slideCenter = rect.left + rect.width / 2;
+      var dist = Math.abs(slideCenter - centerX);
+      var maxDist = trackRect.width / 2 + rect.width / 2;
+      var t = Math.min(1, dist / maxDist);
+      var scale = 1 - t * 0.35;
+      var blur = t * 3.25;
+
+      slide.style.transform = 'scale(' + scale.toFixed(3) + ')';
+      slide.style.filter = t < 0.02 ? 'blur(0)' : 'blur(' + blur.toFixed(2) + 'px)';
+
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestIndex = i;
+      }
+    });
+
+    if (closestIndex !== activeIndex) {
+      setActive(closestIndex);
+    }
+    return closestIndex;
+  }
+
+  function recenterIfNearEdge() {
+    var index = applyTransforms();
+    if (index <= EDGE_LOW || index >= EDGE_HIGH) {
+      var shift = index <= EDGE_LOW ? BUFFER_SHIFT : -BUFFER_SHIFT;
+      suppressScroll = true;
+      track.scrollLeft += shift * stepWidth();
+      setActive(index + shift);
+      applyTransforms();
+      suppressScroll = false;
+    }
+  }
+
+  var ticking = false;
+  var settleTimer = null;
+  function onScroll() {
+    if (suppressScroll) return;
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        applyTransforms();
+      });
+    }
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(recenterIfNearEdge, 120);
+  }
+
+  var scrollAnimationId = 0;
+
+  function animateScrollLeft(from, to, duration, onComplete) {
+    var myId = ++scrollAnimationId;
+    var start = null;
+    function step(now) {
+      if (myId !== scrollAnimationId) return; // a newer animation took over
+      if (start === null) start = now;
+      var progress = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      track.scrollLeft = from + (to - from) * eased;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else if (onComplete) {
+        onComplete();
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function scrollToSlide(index) {
+    var target = slides[index];
+    if (!target) return;
+    var trackRect = track.getBoundingClientRect();
+    var targetRect = target.getBoundingClientRect();
+    var delta = (targetRect.left + targetRect.width / 2) - (trackRect.left + trackRect.width / 2);
+    var from = track.scrollLeft;
+    var to = from + delta;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      track.scrollLeft = to;
+      setActive(index);
+      applyTransforms();
+    } else {
+      animateScrollLeft(from, to, 450, function () {
+        setActive(index);
+        applyTransforms();
+      });
+    }
+  }
+
+  track.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function () {
+    suppressScroll = true;
+    scrollToSlideInstant(activeIndex);
+    suppressScroll = false;
+    applyTransforms();
+  });
+
+  function scrollToSlideInstant(index) {
+    var target = slides[index];
+    if (!target) return;
+    var trackRect = track.getBoundingClientRect();
+    var targetRect = target.getBoundingClientRect();
+    var delta = (targetRect.left + targetRect.width / 2) - (trackRect.left + trackRect.width / 2);
+    track.scrollLeft += delta;
+  }
+
+  slides.forEach(function (slide, i) {
+    slide.addEventListener('click', function () {
+      if (i !== activeIndex) scrollToSlide(i);
+    });
+  });
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function () {
+      scrollToSlide(activeIndex + 1);
+    });
+  }
+
+  suppressScroll = true;
+  scrollToSlideInstant(activeIndex);
+  suppressScroll = false;
+  setActive(activeIndex);
+  applyTransforms();
+})();
+
+/* === FAQ accordion: classic single-open behavior === */
+(function () {
+  var list = document.getElementById('faqList');
+  if (!list) return;
+
+  var items = Array.prototype.slice.call(list.querySelectorAll('.faq-item'));
+
+  function closeItem(item) {
+    var answer = item.querySelector('.faq-item__answer');
+    var button = item.querySelector('.faq-item__question');
+    item.classList.remove('is-open');
+    button.setAttribute('aria-expanded', 'false');
+    answer.style.height = '0px';
+  }
+
+  function openItem(item) {
+    var answer = item.querySelector('.faq-item__answer');
+    var button = item.querySelector('.faq-item__question');
+    item.classList.add('is-open');
+    button.setAttribute('aria-expanded', 'true');
+    answer.style.height = answer.scrollHeight + 'px';
+  }
+
+  items.forEach(function (item) {
+    var button = item.querySelector('.faq-item__question');
+    button.addEventListener('click', function () {
+      var isOpen = item.classList.contains('is-open');
+      items.forEach(closeItem);
+      if (!isOpen) {
+        openItem(item);
+      }
+    });
+  });
+})();
+
+/* === Photo rotator: advances ONE slot at a time (top, then bottom-left, then
+   bottom-right, then back to top...) on a single shared beat — not all at once.
+   Plain crossfade; blur is reserved for the .reveal-io first appearance only. === */
+(function () {
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('.process-photo__img[data-photo-pool]'));
+  if (!imgs.length) return;
+
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return; // keep the first photo static, no cycling
+
+  var INTERVAL = 1000;
+  var FADE_DURATION = 200;
+
+  var slots = imgs
+    .map(function (img) {
+      var pool;
+      try {
+        pool = JSON.parse(img.getAttribute('data-photo-pool'));
+      } catch (e) {
+        return null;
+      }
+      if (!pool || pool.length < 2) return null;
+      return { img: img, pool: pool, index: parseInt(img.getAttribute('data-photo-index'), 10) || 0 };
+    })
+    .filter(Boolean);
+
+  if (!slots.length) return;
+
+  var current = 0;
+
+  setInterval(function () {
+    var slot = slots[current];
+    slot.img.style.opacity = '0';
+    setTimeout(function () {
+      slot.index = (slot.index + 1) % slot.pool.length;
+      slot.img.src = slot.pool[slot.index];
+      slot.img.style.opacity = '1';
+    }, FADE_DURATION);
+    current = (current + 1) % slots.length;
+  }, INTERVAL);
+})();
