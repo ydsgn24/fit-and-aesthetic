@@ -1674,6 +1674,7 @@ button {
   justify-content: center;
   gap: 10px;
   width: 100%;
+  min-height: 55px;
   padding: var(--spacing-12) 0;
   background: none;
   border: none;
